@@ -81,6 +81,7 @@ class Client:
         auth: Optional[RequestsAuth] = None,
         last_event_id: Optional[str] = None,
         event_source_config: Optional[EventSourceConfig] = None,
+        timeout: Optional[int] = None,
     ) -> None:
         self._host: str = host
         self._auth: Optional[RequestsAuth] = auth
@@ -89,6 +90,7 @@ class Client:
             event_source_config or EventSourceConfig()
         )
         self._events: Optional[sseclient.SSEClient] = None
+        self._timeout: int = timeout or REQUEST_TIMEOUT
 
     @property
     def events(self) -> Generator[Event, None, None]:
@@ -114,7 +116,7 @@ class Client:
     @functools.cached_property
     def jmap_session(self) -> Session:
         r = self.requests_session.get(
-            f"https://{self._host}/.well-known/jmap", timeout=REQUEST_TIMEOUT
+            f"https://{self._host}/.well-known/jmap", timeout=self._timeout
         )
         r.raise_for_status()
         session = Session.from_dict(r.json())
@@ -143,7 +145,7 @@ class Client:
                 stream=True,
                 data=f,
                 headers={"Content-Type": mime_type},
-                timeout=REQUEST_TIMEOUT,
+                timeout=self._timeout,
             )
         r.raise_for_status()
         return Blob.from_dict(r.json())
@@ -163,7 +165,7 @@ class Client:
             type=attachment.type,
         )
         r = self.requests_session.get(
-            blob_url, stream=True, timeout=REQUEST_TIMEOUT
+            blob_url, stream=True, timeout=self._timeout
         )
         r.raise_for_status()
         with open(file_name, "wb") as f:
@@ -279,7 +281,7 @@ class Client:
             self.jmap_session.api_url,
             headers={"Content-Type": "application/json"},
             data=raw_request,
-            timeout=REQUEST_TIMEOUT,
+            timeout=self._timeout,
         )
         r.raise_for_status()
         log.debug(f"Received JMAP response {r.text}")
