@@ -40,16 +40,8 @@ version = "0.0.0"
 poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
 
 [tool.poetry.group.dev.dependencies]
-bandit = {extras = ["toml"], version = "*"}
 black = "*"
-cruft = "*"
-flake8 = "*"
-flake8-bugbear = "*"
-flake8-pyproject = "*"
-flake8-simplify = "*"
-isort = "*"
 mypy = "*"
-pep8-naming = "*"
 poethepoet = "*"
 pre-commit = "*"
 pytest = "*"
@@ -77,39 +69,12 @@ help = "Run unit tests with pytest"
 sequence = ["lint", "pytest"]
 help = "Run all tests"
 
-[tool.bandit]
-skips = ["B101"]  # assert_used
-
-[tool.black]
-line-length = 79
-
 [tool.coverage.run]
 source = ["jmaplib"]
 
 [tool.coverage.report]
 fail_under = 95
 show_missing = true
-
-[tool.cruft]
-skip = [".git"]
-
-[tool.flake8]
-exclude = "./.*"
-
-[tool.isort]
-atomic = true
-profile = "black"
-line_length = 79
-
-[tool.mypy]
-files = [ "tests", "jmaplib" ]
-mypy_path = "types"
-disallow_untyped_defs = true
-no_implicit_optional = true
-check_untyped_defs = true
-warn_return_any = true
-show_error_codes = true
-warn_unused_ignores = true
 
 [tool.pytest.ini_options]
 addopts = """\
