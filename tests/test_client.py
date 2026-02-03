@@ -27,9 +27,7 @@ from jmapc.session import (
 from .data import make_session_response
 from .utils import expect_jmap_call
 
-echo_test_data = dict(
-    who="Ness", goods=["Mr. Saturn coin", "Hall of Fame Bat"]
-)
+echo_test_data = dict(who="Ness", goods=["Mr. Saturn coin", "Hall of Fame Bat"])
 
 
 @pytest.mark.parametrize(
@@ -44,9 +42,7 @@ echo_test_data = dict(
         Client("jmap-example.localhost", auth=("ness", "pk_fire")),
         Client(
             "jmap-example.localhost",
-            auth=requests.auth.HTTPBasicAuth(
-                username="ness", password="pk_fire"
-            ),
+            auth=requests.auth.HTTPBasicAuth(username="ness", password="pk_fire"),
         ),
         Client("jmap-example.localhost", auth=BearerAuth("ness__pk_fire")),
     ),
@@ -189,9 +185,7 @@ def test_client_request_updated_session(
         [CoreEcho(data=echo_test_data), MailboxGet(ids=Ref("/example"))],
         [
             Invocation(method=CoreEcho(data=echo_test_data), id="0.Core/echo"),
-            Invocation(
-                method=MailboxGet(ids=Ref(path="/example")), id="1.Mailbox/get"
-            ),
+            Invocation(method=MailboxGet(ids=Ref(path="/example")), id="1.Mailbox/get"),
         ],
         [
             Invocation(method=CoreEcho(data=echo_test_data), id="0.Core/echo"),
@@ -303,15 +297,9 @@ def test_client_request_single(
     expect_jmap_call(http_responses, expected_request, response)
     expected_response = CoreEchoResponse(data=echo_test_data)
     if raise_errors:
-        assert (
-            client.request(method_params, raise_errors=True)
-            == expected_response
-        )
+        assert client.request(method_params, raise_errors=True) == expected_response
     else:
-        assert (
-            client.request(method_params, raise_errors=False)
-            == expected_response
-        )
+        assert client.request(method_params, raise_errors=False) == expected_response
 
 
 def test_client_request_single_with_multiple_responses(
@@ -383,8 +371,7 @@ def test_client_request_single_with_multiple_responses_error(
     with pytest.raises(ClientError) as e:
         client.request(method_params, single_response=True)
     assert (
-        str(e.value)
-        == "2 method responses received for single method call Core/echo"
+        str(e.value) == "2 method responses received for single method call Core/echo"
     )
     assert e.value.result == 2 * [
         InvocationResponseOrError(
@@ -433,9 +420,7 @@ def test_upload_blob(
         body=json.dumps(upload_response),
     )
     response = client.upload_blob(source_file)
-    assert response == Blob(
-        id="C2187", type="text/plain", size=len(blob_content)
-    )
+    assert response == Blob(id="C2187", type="text/plain", size=len(blob_content))
 
 
 def test_download_attachment(
@@ -471,19 +456,17 @@ def test_download_email(
     http_responses.add(
         method=responses.GET,
         url=(
-            "https://jmap-api.localhost/jmap/download"
-            "/u1138/E5402/?type=message/rfc822"
+            "https://jmap-api.localhost/jmap/download/u1138/E5402/?type=message/rfc822"
         ),
         body=blob_content,
     )
     dest_file = tempdir / "email.eml"
-    with pytest.raises(Exception) as e:
-        client.download_email(
-            Email(blob_id="E5402"),
-            "",
-        )
-    assert str(e.value) == "Destination file name is required"
+    data = client.download_email(
+        Email(message_id="test1234", blob_id="E5402"),
+        None,
+    )
     assert not dest_file.exists()
+    assert data.decode("utf-8") == blob_content
     client.download_email(
         Email(blob_id="E5402"),
         dest_file,

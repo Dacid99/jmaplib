@@ -70,9 +70,7 @@ class Client:
         *args: Any,
         **kwargs: Any,
     ) -> ClientType:
-        kwargs["auth"] = requests.auth.HTTPBasicAuth(
-            username=user, password=password
-        )
+        kwargs["auth"] = requests.auth.HTTPBasicAuth(username=user, password=password)
         return cls(host, *args, **kwargs)
 
     def __init__(
@@ -134,9 +132,7 @@ class Client:
 
     def upload_blob(self, file_name: Union[str, Path]) -> Blob:
         mime_type, mime_encoding = mimetypes.guess_type(file_name)
-        upload_url = self.jmap_session.upload_url.format(
-            accountId=self.account_id
-        )
+        upload_url = self.jmap_session.upload_url.format(accountId=self.account_id)
         with open(file_name, "rb") as f:
             r = self.requests_session.post(
                 upload_url,
@@ -171,9 +167,7 @@ class Client:
             name=attachment.name,
             type=attachment.type,
         )
-        r = self.requests_session.get(
-            blob_url, stream=True, timeout=REQUEST_TIMEOUT
-        )
+        r = self.requests_session.get(blob_url, stream=True, timeout=REQUEST_TIMEOUT)
         r.raise_for_status()
         if file_name:
             with open(file_name, "wb") as f:
@@ -182,14 +176,23 @@ class Client:
         else:
             return r.raw.data
 
+    @overload
+    def download_email(
+        self, email: Email, file_name: None
+    ) -> bytes: ...  # pragma: no cover
+
+    @overload
     def download_email(
         self,
         email: Email,
         file_name: Union[str, Path],
-    ) -> None:
-        if not file_name:
-            raise Exception("Destination file name is required")
-        file_name = Path(file_name)
+    ) -> None: ...  # pragma: no cover
+
+    def download_email(
+        self,
+        email: Email,
+        file_name: Union[str, Path, None],
+    ) -> Optional[bytes]:
         blob_url = self.jmap_session.download_url.format(
             accountId=self.account_id,
             blobId=email.blob_id,
@@ -197,12 +200,14 @@ class Client:
             type="message/rfc822",
         )
         print(blob_url)
-        r = self.requests_session.get(
-            blob_url, stream=True, timeout=REQUEST_TIMEOUT
-        )
+        r = self.requests_session.get(blob_url, stream=True, timeout=REQUEST_TIMEOUT)
         r.raise_for_status()
-        with open(file_name, "wb") as f:
-            f.write(r.raw.data)
+        if file_name:
+            with open(file_name, "wb") as f:
+                f.write(r.raw.data)
+            return None
+        else:
+            return r.raw.data
 
     @overload
     def request(
@@ -218,9 +223,7 @@ class Client:
         calls: Method,
         raise_errors: Literal[False] = False,
         single_response: Literal[False] = False,
-    ) -> Union[
-        Sequence[ResponseOrError], ResponseOrError
-    ]: ...  # pragma: no cover
+    ) -> Union[Sequence[ResponseOrError], ResponseOrError]: ...  # pragma: no cover
 
     @overload
     def request(
@@ -265,14 +268,11 @@ class Client:
     ]:
         if isinstance(calls, list) and single_response:
             raise ValueError(
-                "single_response cannot be used with "
-                "multiple JMAP request methods"
+                "single_response cannot be used with multiple JMAP request methods"
             )
         api_request = APIRequest.from_calls(self.account_id, calls)
         # Validate all requested JMAP URNs are supported by the server
-        unsupported_urns = (
-            api_request.using - self.jmap_session.capabilities.urns
-        )
+        unsupported_urns = api_request.using - self.jmap_session.capabilities.urns
         if unsupported_urns:
             log.warning(
                 "URNs in request are not in server capabilities: "
@@ -284,13 +284,9 @@ class Client:
         ] = self._api_request(api_request)
         if raise_errors:
             if any(isinstance(r.response, errors.Error) for r in result):
-                raise ClientError(
-                    "Errors found in method responses", result=result
-                )
+                raise ClientError("Errors found in method responses", result=result)
             result = [
-                InvocationResponse(
-                    id=r.id, response=cast(Response, r.response)
-                )
+                InvocationResponse(id=r.id, response=cast(Response, r.response))
                 for r in result
             ]
         if isinstance(calls, Method):
@@ -305,9 +301,7 @@ class Client:
             return result[0].response
         return result
 
-    def _api_request(
-        self, request: APIRequest
-    ) -> Sequence[InvocationResponseOrError]:
+    def _api_request(self, request: APIRequest) -> Sequence[InvocationResponseOrError]:
         raw_request = request.to_json()
         log.debug(f"Sending JMAP request {raw_request}")
         r = self.requests_session.post(
