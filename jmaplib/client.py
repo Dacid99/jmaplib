@@ -3,8 +3,10 @@ from __future__ import annotations
 import functools
 import mimetypes
 from dataclasses import asdict, dataclass
+from pathlib import Path
 from typing import TYPE_CHECKING, Any, Literal, TypeVar, Union, cast, overload
 
+import dateutil.parser
 import requests
 import sseclient
 from typing_extensions import Self
@@ -14,6 +16,8 @@ from .api import APIRequest, APIResponse
 from .auth import BearerAuth
 from .logging import log
 from .methods import (
+    EmailImportRequest,
+    EmailImportResponse,
     InvocationResponse,
     InvocationResponseOrError,
     Method,
@@ -21,11 +25,12 @@ from .methods import (
     Response,
     ResponseOrError,
 )
-from .models import Blob, Email, EmailBodyPart, Event
+from .models import Blob, Email, EmailBodyPart, EmailImport, Event
 from .session import Session
 
 if TYPE_CHECKING:
     from collections.abc import Generator, Sequence
+    from datetime import datetime
     from pathlib import Path
 
 RequestsAuth = Union[requests.auth.AuthBase, tuple[str, str]]
@@ -208,6 +213,46 @@ class Client:
                 f.write(r.raw.data)
             return None
         return r.raw.data
+
+    def import_email(
+        self,
+        blob_id: str,
+        mailbox_ids: dict[str, bool],
+        keywords: dict[str, bool] | None = None,
+        received_at: str | datetime | None = None,
+        if_in_state: str | None = None,
+    ) -> EmailImportResponse:
+        """Import an email into the mailbox using the Email/import JMAP method.
+
+        Args:
+            blob_id: The ID of the blob containing the raw message to import
+            mailbox_ids: The mailbox IDs to assign the email to
+            keywords: Optional keywords to apply to the email
+            received_at: Optional receivedAt date to set (as ISO format string)
+            if_in_state: Only import if account is currently in given state
+
+        Returns:
+            The EmailImportResponse containing details of the imported email
+        """
+        # Create EmailImport object
+        email_import = EmailImport(
+            blob_id=blob_id,
+            mailbox_ids=mailbox_ids,
+            keywords=keywords,
+        )
+        if isinstance(received_at, str):
+            received_at = dateutil.parser.isoparse(received_at)
+        if received_at:
+            email_import.received_at = received_at
+
+        # Create the request
+        request = EmailImportRequest(
+            emails={"import1": email_import}, if_in_state=if_in_state
+        )
+        # Add the account ID
+        request.account_id = self.account_id
+
+        return cast("EmailImportResponse", self.request(request))
 
     @overload
     def request(

@@ -114,6 +114,23 @@ class EmailQueryFilterOperator(Model):
     conditions: list[EmailQueryFilter]
 
 
+@dataclass
+class EmailImport(Model):
+    """Represents an Email to be imported via the Email/import JMAP method."""
+
+    blob_id: str = field(metadata=config(field_name="blobId"))
+    mailbox_ids: dict[str, bool] = field(metadata=config(field_name="mailboxIds"))
+    keywords: dict[str, bool] | None = None
+    received_at: datetime | None = field(
+        default=None,
+        metadata=config(
+            encoder=datetime_encode,
+            decoder=datetime_decode,
+            field_name="receivedAt",
+        ),
+    )
+
+
 class EmailProperties:
     """Property keys of an email object.
 
