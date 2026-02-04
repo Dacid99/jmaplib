@@ -7,7 +7,7 @@ Requirements
 jmaplib requires Python 3.9 or later.
 
 Installing from PyPI
----------------------
+--------------------
 
 The easiest way to install jmaplib is from PyPI using pip:
 
@@ -24,7 +24,7 @@ If you want to install from source (for development or to get the latest unrelea
 
 .. code-block:: console
 
-   git clone https://github.com/smkent/jmaplib.git
+   git clone https://github.com/Dacid99/jmaplib.git
    cd jmaplib
    pip install .
 
@@ -35,7 +35,7 @@ For development, it's recommended to use Poetry:
 
 .. code-block:: console
 
-   git clone https://github.com/smkent/jmaplib.git
+   git clone https://github.com/Dacid99/jmaplib.git
    cd jmaplib
    poetry install
 

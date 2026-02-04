@@ -87,7 +87,7 @@ You can set these environment variables in your shell:
    export JMAP_API_TOKEN="your_api_token_here"
 
 Getting API Tokens
--------------------
+------------------
 
 The process for obtaining API tokens varies by provider:
 

@@ -8,11 +8,11 @@ import math
 import os
 import sys
 import tempfile
-from datetime import datetime
+from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 
-from jmapc import Blob, Client, MailboxQueryFilterCondition, Ref
-from jmapc.methods import MailboxGet, MailboxGetResponse, MailboxQuery
+from jmaplib import Blob, Client, MailboxQueryFilterCondition, Ref
+from jmaplib.methods import MailboxGet, MailboxGetResponse, MailboxQuery
 
 
 def main() -> None:
@@ -81,9 +81,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def get_mailbox_id(client: Client, mailbox_name: str) -> str:
-    """
-    Find the mailbox ID for the given mailbox name.
-    """
+    """Find the mailbox ID for the given mailbox name."""
     methods = [
         MailboxQuery(filter=MailboxQueryFilterCondition(name=mailbox_name)),
         MailboxGet(ids=Ref("/ids")),
@@ -106,9 +104,7 @@ def get_mailbox_id(client: Client, mailbox_name: str) -> str:
 
 
 def extract_received_at(message: mailbox.Message) -> str:
-    """
-    Extract the received date from the email message.
-    """
+    """Extract the received date from the email message."""
     # Try to get the date from various headers
     for header in ["Date", "Received"]:
         try:
@@ -125,7 +121,7 @@ def extract_received_at(message: mailbox.Message) -> str:
         return date.isoformat()
 
     # If we can't parse the date, use current time
-    return datetime.now().isoformat()
+    return datetime.now(tz=timezone.utc).isoformat()
 
 
 def import_message(
@@ -134,8 +130,7 @@ def import_message(
     message: mailbox.Message,
     dry_run: bool = False,
 ) -> bool:
-    """
-    Import a single email message from the mbox file.
+    """Import a single email message from the mbox file.
 
     Args:
         client: JMAP client
@@ -179,19 +174,17 @@ def import_message(
         print(f"Imported: {subject!r} ({message_size})", message_id or "")
         return True
 
-    print(
-        f"Failed to import {message_id} ({message_size}): {result.not_created}"
-    )
+    print(f"Failed to import {message_id} ({message_size}): {result.not_created}")
     return False
 
 
-def format_size(num: int | float) -> str:
+def format_size(num: float) -> str:
     if num == 0:
         return "0 bytes"
-    elif num == 1:
+    if num == 1:
         return "1 byte"
     units = ["bytes", "KB", "MB", "GB", "TB", "PB"]
-    scale = int(math.floor(math.log(num, 1024)))
+    scale = math.floor(math.log(num, 1024))
     rounded = round(num / (1024**scale))
     if not scale:
         return f"{rounded} {units[scale]}"
@@ -199,14 +192,11 @@ def format_size(num: int | float) -> str:
 
 
 def upload_blob_data(client: Client, data: bytes) -> Blob:
-    """
-    Upload raw bytes as a blob.
-    """
+    """Upload raw bytes as a blob."""
     with tempfile.NamedTemporaryFile() as temp:
         temp.write(data)
         temp_name = temp.name
-        blob = client.upload_blob(temp_name)
-        return blob
+        return client.upload_blob(temp_name)
 
 
 if __name__ == "__main__":

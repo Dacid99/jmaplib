@@ -34,7 +34,7 @@ The simplest way to test your connection is using the Core/echo method:
    # Output: CoreEchoResponse(data={'hello': 'world'})
 
 Getting Identities
--------------------
+------------------
 
 Retrieve all email identities associated with your account:
 
@@ -92,7 +92,7 @@ Get all mailboxes and their properties:
        print("---")
 
 Querying and Retrieving Emails
--------------------------------
+------------------------------
 
 Search for emails and retrieve their details:
 
@@ -140,7 +140,7 @@ Search for emails and retrieve their details:
                print("---")
 
 Creating and Sending Emails
-----------------------------
+---------------------------
 
 Create a new email and send it:
 
@@ -248,7 +248,7 @@ Combine multiple operations in a single request for efficiency:
    print(f"Found {len(emails.data)} emails in {mailboxes.data[0].name}")
 
 Event Source Monitoring
-------------------------
+-----------------------
 
 Monitor real-time changes using EventSource:
 
