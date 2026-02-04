@@ -3,7 +3,7 @@ Models API
 
 JMAP data models represent the various objects in the JMAP protocol like emails, mailboxes, and identities.
 
-.. automodule:: jmapc.models
+.. automodule:: jmaplib.models
    :members:
    :undoc-members:
    :show-inheritance:
@@ -11,7 +11,7 @@ JMAP data models represent the various objects in the JMAP protocol like emails,
 Email Models
 ------------
 
-.. automodule:: jmapc.models.email
+.. automodule:: jmaplib.models.email
    :members:
    :undoc-members:
    :show-inheritance:
@@ -19,7 +19,7 @@ Email Models
 Email Submission Models
 -----------------------
 
-.. automodule:: jmapc.models.email_submission
+.. automodule:: jmaplib.models.email_submission
    :members:
    :undoc-members:
    :show-inheritance:
@@ -27,7 +27,7 @@ Email Submission Models
 Identity Models
 ---------------
 
-.. automodule:: jmapc.models.identity
+.. automodule:: jmaplib.models.identity
    :members:
    :undoc-members:
    :show-inheritance:
@@ -35,7 +35,7 @@ Identity Models
 Mailbox Models
 --------------
 
-.. automodule:: jmapc.models.mailbox
+.. automodule:: jmaplib.models.mailbox
    :members:
    :undoc-members:
    :show-inheritance:
@@ -43,7 +43,7 @@ Mailbox Models
 Search Snippet Models
 ---------------------
 
-.. automodule:: jmapc.models.search_snippet
+.. automodule:: jmaplib.models.search_snippet
    :members:
    :undoc-members:
    :show-inheritance:
@@ -51,7 +51,7 @@ Search Snippet Models
 Thread Models
 -------------
 
-.. automodule:: jmapc.models.thread
+.. automodule:: jmaplib.models.thread
    :members:
    :undoc-members:
    :show-inheritance:
@@ -59,7 +59,7 @@ Thread Models
 Event Models
 ------------
 
-.. automodule:: jmapc.models.event
+.. automodule:: jmaplib.models.event
    :members:
    :undoc-members:
    :show-inheritance:
@@ -67,7 +67,7 @@ Event Models
 Base Models
 -----------
 
-.. automodule:: jmapc.models.models
+.. automodule:: jmaplib.models.models
    :members:
    :undoc-members:
-   :show-inheritance: 
+   :show-inheritance:

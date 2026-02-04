@@ -1,7 +1,7 @@
 Quick Start
 ===========
 
-This guide will help you get started with jmapc quickly.
+This guide will help you get started with jmaplib quickly.
 
 Basic Usage
 -----------
@@ -12,9 +12,9 @@ First, you need to create a client instance. There are several ways to authentic
 
 .. code-block:: python
 
-   import jmapc
+   import jmaplib
 
-   client = jmapc.Client.create_with_api_token(
+   client = jmaplib.Client.create_with_api_token(
        host="jmap.example.com",
        api_token="your_api_token_here"
    )
@@ -23,9 +23,9 @@ First, you need to create a client instance. There are several ways to authentic
 
 .. code-block:: python
 
-   import jmapc
+   import jmaplib
 
-   client = jmapc.Client.create_with_password(
+   client = jmaplib.Client.create_with_password(
        host="jmap.example.com",
        user="your_username",
        password="your_password"
@@ -41,8 +41,8 @@ Identities represent the email addresses you can send from:
 .. code-block:: python
 
    # Get all identities
-   identities = client.request(jmapc.methods.identity.IdentityGet())
-   
+   identities = client.request(jmaplib.methods.identity.IdentityGet())
+
    for identity in identities.list:
        print(f"Identity {identity.id} is for {identity.name} at {identity.email}")
 
@@ -54,8 +54,8 @@ Mailboxes are containers for emails (like folders):
 .. code-block:: python
 
    # Get all mailboxes
-   mailboxes = client.request(jmapc.methods.mailbox.MailboxGet(ids=None))
-   
+   mailboxes = client.request(jmaplib.methods.mailbox.MailboxGet(ids=None))
+
    for mailbox in mailboxes.list:
        print(f"Mailbox: {mailbox.name} ({mailbox.total_emails} emails)")
 
@@ -67,20 +67,20 @@ To search for emails, use the Email/query method:
 .. code-block:: python
 
    # Query for emails in the inbox
-   email_query = client.request(jmapc.methods.email.EmailQuery(
-       filter=jmapc.models.email.EmailQueryFilterCondition(
+   email_query = client.request(jmaplib.methods.email.EmailQuery(
+       filter=jmaplib.models.email.EmailQueryFilterCondition(
            in_mailbox="inbox_mailbox_id"
        ),
        limit=10
    ))
-   
+
    # Get the actual email objects
    if email_query.ids:
-       emails = client.request(jmapc.methods.email.EmailGet(
+       emails = client.request(jmaplib.methods.email.EmailGet(
            ids=email_query.ids,
            properties=["id", "subject", "from", "receivedAt"]
        ))
-       
+
        for email in emails.list:
            print(f"Subject: {email.subject}")
            print(f"From: {email.from_[0].email}")
@@ -96,13 +96,13 @@ You can combine multiple requests in a single call for efficiency:
 
    # Create a list of method calls
    methods = [
-       jmapc.methods.identity.IdentityGet(),
-       jmapc.methods.mailbox.MailboxGet(ids=None)
+       jmaplib.methods.identity.IdentityGet(),
+       jmaplib.methods.mailbox.MailboxGet(ids=None)
    ]
-   
+
    # Execute the combined request
    responses = client.request(methods)
-   
+
    # Access results by index
    identities = responses[0]
    mailboxes = responses[1]
@@ -114,23 +114,23 @@ You can reference the results of one method call in another using the Invocation
 
 .. code-block:: python
 
-   from jmapc.methods import Invocation
-   
+   from jmaplib.methods import Invocation
+
    # Create invocations with specific IDs
    invocations = [
        Invocation(
            id="emailQuery",
-           method=jmapc.methods.email.EmailQuery(
-               filter=jmapc.models.email.EmailQueryFilterCondition(
+           method=jmaplib.methods.email.EmailQuery(
+               filter=jmaplib.models.email.EmailQueryFilterCondition(
                    in_mailbox="inbox_mailbox_id"
                ),
                limit=5
            )
        ),
        Invocation(
-           id="emailGet", 
-           method=jmapc.methods.email.EmailGet(
-               ids=jmapc.ResultReference(
+           id="emailGet",
+           method=jmaplib.methods.email.EmailGet(
+               ids=jmaplib.ResultReference(
                    name="Email/query",
                    path="/ids",
                    result_of="emailQuery"
@@ -139,7 +139,7 @@ You can reference the results of one method call in another using the Invocation
            )
        )
    ]
-   
+
    responses = client.request(invocations)
    emails = responses[1].response  # Get the EmailGet response
 
@@ -151,20 +151,20 @@ The library provides comprehensive error handling:
 .. code-block:: python
 
    try:
-       response = client.request(jmapc.methods.email.EmailGet(
+       response = client.request(jmaplib.methods.email.EmailGet(
            ids=["invalid_id"]
        ), raise_errors=True)
-   except jmapc.ClientError as e:
+   except jmaplib.ClientError as e:
        print(f"Client error: {e}")
        # Access the raw response for debugging
        print(f"Raw response: {e.result}")
-   
+
    # Or handle errors manually without exceptions
-   response = client.request(jmapc.methods.email.EmailGet(
+   response = client.request(jmaplib.methods.email.EmailGet(
        ids=["invalid_id"]
    ), raise_errors=False)
-   
-   if isinstance(response, jmapc.errors.Error):
+
+   if isinstance(response, jmaplib.errors.Error):
        print(f"JMAP error: {response.type}")
    else:
        print("Success!")
@@ -174,4 +174,4 @@ Next Steps
 
 * Read the :doc:`authentication` guide for different authentication methods
 * Explore the :doc:`examples` for more detailed use cases
-* Check the :doc:`api/client` for the complete API reference 
+* Check the :doc:`api/client` for the complete API reference

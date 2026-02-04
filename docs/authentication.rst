@@ -1,7 +1,7 @@
 Authentication
 ==============
 
-jmapc supports multiple authentication methods for connecting to JMAP servers.
+jmaplib supports multiple authentication methods for connecting to JMAP servers.
 The authentication method you use depends on your JMAP server configuration.
 
 API Token Authentication
@@ -12,9 +12,9 @@ Many JMAP providers (like Fastmail) provide API tokens for programmatic access.
 
 .. code-block:: python
 
-   import jmapc
+   import jmaplib
 
-   client = jmapc.Client.create_with_api_token(
+   client = jmaplib.Client.create_with_api_token(
        host="jmap.example.com",
        api_token="your_api_token_here"
    )
@@ -33,16 +33,16 @@ You can also use username/password authentication:
 
 .. code-block:: python
 
-   import jmapc
+   import jmaplib
 
-   client = jmapc.Client.create_with_password(
+   client = jmaplib.Client.create_with_password(
        host="jmap.example.com",
        user="your_username",
        password="your_password"
    )
 
 .. warning::
-   
+
    Using passwords directly in code is not recommended for production applications.
    Consider using environment variables or secure credential storage.
 
@@ -53,13 +53,13 @@ For more advanced authentication schemes, you can provide a custom authenticatio
 
 .. code-block:: python
 
-   import jmapc
+   import jmaplib
    import requests.auth
 
    # Custom authentication
    custom_auth = requests.auth.HTTPDigestAuth("username", "password")
-   
-   client = jmapc.Client(
+
+   client = jmaplib.Client(
        host="jmap.example.com",
        auth=custom_auth
    )
@@ -72,9 +72,9 @@ For security, it's recommended to store credentials in environment variables:
 .. code-block:: python
 
    import os
-   import jmapc
+   import jmaplib
 
-   client = jmapc.Client.create_with_api_token(
+   client = jmaplib.Client.create_with_api_token(
        host=os.environ["JMAP_HOST"],
        api_token=os.environ["JMAP_API_TOKEN"]
    )
@@ -108,7 +108,7 @@ Most providers will have them in their account security or developer settings.
 Session Management
 ------------------
 
-jmapc automatically handles JMAP session discovery and management. When you create
+jmaplib automatically handles JMAP session discovery and management. When you create
 a client, it will:
 
 1. Discover the JMAP endpoints using the well-known URL
@@ -138,11 +138,11 @@ Always handle authentication errors gracefully:
 
 .. code-block:: python
 
-   import jmapc
+   import jmaplib
    from requests.exceptions import HTTPError
 
    try:
-       client = jmapc.Client.create_with_api_token(
+       client = jmaplib.Client.create_with_api_token(
            host="jmap.example.com",
            api_token="invalid_token"
        )
@@ -161,4 +161,4 @@ Next Steps
 
 * Learn about making requests in the :doc:`quickstart` guide
 * Explore practical usage in the :doc:`examples` section
-* Check the :doc:`api/client` for complete API reference 
+* Check the :doc:`api/client` for complete API reference

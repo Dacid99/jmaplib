@@ -1,24 +1,24 @@
-jmapc: A JMAP client library for Python
+jmaplib: A JMAP client library for Python
 ========================================
 
-.. image:: https://img.shields.io/pypi/v/jmapc
-   :target: https://pypi.org/project/jmapc/
+.. image:: https://img.shields.io/pypi/v/jmaplib
+   :target: https://pypi.org/project/jmaplib/
    :alt: PyPI
 
-.. image:: https://img.shields.io/pypi/pyversions/jmapc
-   :target: https://pypi.org/project/jmapc/
+.. image:: https://img.shields.io/pypi/pyversions/jmaplib
+   :target: https://pypi.org/project/jmaplib/
    :alt: PyPI - Python Version
 
-.. image:: https://img.shields.io/github/checks-status/smkent/jmapc/main?label=build
-   :target: https://github.com/smkent/jmapc/actions?query=branch%3Amain
+.. image:: https://img.shields.io/github/checks-status/smkent/jmaplib/main?label=build
+   :target: https://github.com/smkent/jmaplib/actions?query=branch%3Amain
    :alt: Build
 
-.. image:: https://codecov.io/gh/smkent/jmapc/branch/main/graph/badge.svg
-   :target: https://codecov.io/gh/smkent/jmapc
+.. image:: https://codecov.io/gh/smkent/jmaplib/branch/main/graph/badge.svg
+   :target: https://codecov.io/gh/smkent/jmaplib
    :alt: codecov
 
-**jmapc** is a Python client library for the `JMAP protocol <https://jmap.io>`_.
-JMAP (JSON Meta Application Protocol) is a modern, efficient protocol for 
+**jmaplib** is a Python client library for the `JMAP protocol <https://jmap.io>`_.
+JMAP (JSON Meta Application Protocol) is a modern, efficient protocol for
 synchronizing email, calendars, and contacts.
 
 Features
@@ -50,11 +50,11 @@ Currently implemented:
 Installation
 ------------
 
-jmapc is available on PyPI and can be installed with pip:
+jmaplib is available on PyPI and can be installed with pip:
 
 .. code-block:: console
 
-   pip install jmapc
+   pip install jmaplib
 
 Quick Start
 -----------
@@ -63,16 +63,16 @@ Here's a simple example to get you started:
 
 .. code-block:: python
 
-   import jmapc
+   import jmaplib
 
    # Create a client with your JMAP server details
-   client = jmapc.Client.create_with_api_token(
+   client = jmaplib.Client.create_with_api_token(
        host="jmap.example.com",
        api_token="your_api_token_here"
    )
 
    # Get identities
-   identities = client.request(jmapc.methods.identity.IdentityGet())
+   identities = client.request(jmaplib.methods.identity.IdentityGet())
    for identity in identities.list:
        print(f"Identity {identity.id} {identity.email}")
 
@@ -87,7 +87,7 @@ Documentation Contents
    quickstart
    authentication
    examples
-   
+
 .. toctree::
    :maxdepth: 2
    :caption: API Reference
@@ -101,4 +101,4 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search` 
+* :ref:`search`

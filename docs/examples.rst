@@ -1,7 +1,7 @@
 Examples
 ========
 
-This page contains practical examples of using jmapc for common JMAP operations.
+This page contains practical examples of using jmaplib for common JMAP operations.
 All examples assume you have set the ``JMAP_HOST`` and ``JMAP_API_TOKEN`` environment variables.
 
 Basic Echo Test
@@ -14,12 +14,12 @@ The simplest way to test your connection is using the Core/echo method:
    #!/usr/bin/env python3
 
    import os
-   from jmapc import Client
-   from jmapc.methods import CoreEcho
+   from jmaplib import Client
+   from jmaplib.methods import CoreEcho
 
    # Create and configure client
    client = Client.create_with_api_token(
-       host=os.environ["JMAP_HOST"], 
+       host=os.environ["JMAP_HOST"],
        api_token=os.environ["JMAP_API_TOKEN"]
    )
 
@@ -43,12 +43,12 @@ Retrieve all email identities associated with your account:
    #!/usr/bin/env python3
 
    import os
-   from jmapc import Client
-   from jmapc.methods import IdentityGet, IdentityGetResponse
+   from jmaplib import Client
+   from jmaplib.methods import IdentityGet, IdentityGetResponse
 
    # Create and configure client
    client = Client.create_with_api_token(
-       host=os.environ["JMAP_HOST"], 
+       host=os.environ["JMAP_HOST"],
        api_token=os.environ["JMAP_API_TOKEN"]
    )
 
@@ -72,8 +72,8 @@ Get all mailboxes and their properties:
 .. code-block:: python
 
    import os
-   from jmapc import Client
-   from jmapc.methods import MailboxGet
+   from jmaplib import Client
+   from jmaplib.methods import MailboxGet
 
    client = Client.create_with_api_token(
        host=os.environ["JMAP_HOST"],
@@ -99,9 +99,9 @@ Search for emails and retrieve their details:
 .. code-block:: python
 
    import os
-   from jmapc import Client
-   from jmapc.methods import EmailQuery, EmailGet
-   from jmapc.models.email import EmailFilterCondition
+   from jmaplib import Client
+   from jmaplib.methods import EmailQuery, EmailGet
+   from jmaplib.models.email import EmailFilterCondition
 
    client = Client.create_with_api_token(
        host=os.environ["JMAP_HOST"],
@@ -147,10 +147,10 @@ Create a new email and send it:
 .. code-block:: python
 
    import os
-   from jmapc import Client
-   from jmapc.methods import EmailSet, EmailSubmissionSet, IdentityGet
-   from jmapc.models.email import Email, EmailAddress, EmailBodyPart
-   from jmapc.models.emailsubmission import EmailSubmission, Envelope
+   from jmaplib import Client
+   from jmaplib.methods import EmailSet, EmailSubmissionSet, IdentityGet
+   from jmaplib.models.email import Email, EmailAddress, EmailBodyPart
+   from jmaplib.models.emailsubmission import EmailSubmission, Envelope
    from datetime import datetime
 
    client = Client.create_with_api_token(
@@ -166,10 +166,10 @@ Create a new email and send it:
    email = Email(
        from_=[EmailAddress(name=sender_identity.name, email=sender_identity.email)],
        to=[EmailAddress(email="recipient@example.com")],
-       subject="Test email from jmapc",
+       subject="Test email from jmaplib",
        body_values={
            "text": EmailBodyPart(
-               value="Hello from jmapc!\n\nThis is a test email.",
+               value="Hello from jmaplib!\n\nThis is a test email.",
                type="text/plain"
            )
        },
@@ -185,7 +185,7 @@ Create a new email and send it:
 
    if email_result.created:
        email_id = email_result.created["draft"].id
-       
+
        # Submit the email for sending
        submission = EmailSubmission(
            identity_id=sender_identity.id,
@@ -216,8 +216,8 @@ Combine multiple operations in a single request for efficiency:
 .. code-block:: python
 
    import os
-   from jmapc import Client, Request, ResultReference
-   from jmapc.methods import MailboxGet, EmailQuery, EmailGet
+   from jmaplib import Client, Request, ResultReference
+   from jmaplib.methods import MailboxGet, EmailQuery, EmailGet
 
    client = Client.create_with_api_token(
        host=os.environ["JMAP_HOST"],
@@ -255,7 +255,7 @@ Monitor real-time changes using EventSource:
 .. code-block:: python
 
    import os
-   from jmapc import Client
+   from jmaplib import Client
 
    client = Client.create_with_api_token(
        host=os.environ["JMAP_HOST"],
@@ -279,8 +279,8 @@ Upload a file and download email attachments:
 .. code-block:: python
 
    import os
-   from jmapc import Client
-   from jmapc.methods import EmailGet
+   from jmaplib import Client
+   from jmaplib.methods import EmailGet
 
    client = Client.create_with_api_token(
        host=os.environ["JMAP_HOST"],
@@ -324,4 +324,4 @@ To run these examples:
 
       python example.py
 
-The complete examples are also available in the ``examples/`` directory of the jmapc repository. 
+The complete examples are also available in the ``examples/`` directory of the jmaplib repository.

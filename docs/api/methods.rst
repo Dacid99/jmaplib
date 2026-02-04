@@ -1,9 +1,9 @@
 Methods API
 ===========
 
-JMAP methods are the core operations you can perform. jmapc provides typed method classes for all supported JMAP operations.
+JMAP methods are the core operations you can perform. jmaplib provides typed method classes for all supported JMAP operations.
 
-.. automodule:: jmapc.methods
+.. automodule:: jmaplib.methods
    :members:
    :undoc-members:
    :show-inheritance:
@@ -11,7 +11,7 @@ JMAP methods are the core operations you can perform. jmapc provides typed metho
 Core Methods
 ------------
 
-.. automodule:: jmapc.methods.core
+.. automodule:: jmaplib.methods.core
    :members:
    :undoc-members:
    :show-inheritance:
@@ -19,7 +19,7 @@ Core Methods
 Email Methods
 -------------
 
-.. automodule:: jmapc.methods.email
+.. automodule:: jmaplib.methods.email
    :members:
    :undoc-members:
    :show-inheritance:
@@ -27,7 +27,7 @@ Email Methods
 Email Submission Methods
 ------------------------
 
-.. automodule:: jmapc.methods.email_submission
+.. automodule:: jmaplib.methods.email_submission
    :members:
    :undoc-members:
    :show-inheritance:
@@ -35,7 +35,7 @@ Email Submission Methods
 Identity Methods
 ----------------
 
-.. automodule:: jmapc.methods.identity
+.. automodule:: jmaplib.methods.identity
    :members:
    :undoc-members:
    :show-inheritance:
@@ -43,7 +43,7 @@ Identity Methods
 Mailbox Methods
 ---------------
 
-.. automodule:: jmapc.methods.mailbox
+.. automodule:: jmaplib.methods.mailbox
    :members:
    :undoc-members:
    :show-inheritance:
@@ -51,7 +51,7 @@ Mailbox Methods
 Search Snippet Methods
 ----------------------
 
-.. automodule:: jmapc.methods.search_snippet
+.. automodule:: jmaplib.methods.search_snippet
    :members:
    :undoc-members:
    :show-inheritance:
@@ -59,7 +59,7 @@ Search Snippet Methods
 Thread Methods
 --------------
 
-.. automodule:: jmapc.methods.thread
+.. automodule:: jmaplib.methods.thread
    :members:
    :undoc-members:
    :show-inheritance:
@@ -67,7 +67,7 @@ Thread Methods
 Custom Methods
 --------------
 
-.. automodule:: jmapc.methods.custom
+.. automodule:: jmaplib.methods.custom
    :members:
    :undoc-members:
    :show-inheritance:
@@ -75,12 +75,12 @@ Custom Methods
 Request and Response Classes
 ----------------------------
 
-.. autoclass:: jmapc.methods.Request
+.. autoclass:: jmaplib.methods.Request
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. autoclass:: jmapc.methods.Response
+.. autoclass:: jmaplib.methods.Response
    :members:
    :undoc-members:
-   :show-inheritance: 
+   :show-inheritance:
