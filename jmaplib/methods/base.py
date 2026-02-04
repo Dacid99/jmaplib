@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import contextlib
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, ClassVar, cast
+from typing import TYPE_CHECKING, Any, ClassVar, Union, cast
 
 from jmaplib.errors import Error
 from jmaplib.serializer import Model
@@ -209,5 +209,5 @@ class QueryChangesResponse(ResponseWithAccount, QueryChangesMethod):
     total: int | None = None
 
 
-ResponseOrError = Error | Response
-Request = Method | Invocation
+ResponseOrError = Union[Error, Response]
+Request = Union[Method, Invocation]

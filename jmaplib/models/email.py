@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Final
+from typing import TYPE_CHECKING, Final, Union
 
 from dataclasses_json import config
 
@@ -169,4 +169,4 @@ class EmailBodyPartProperties:
     SUB_PARTS: Final[str] = "subParts"
 
 
-EmailQueryFilter = EmailQueryFilterCondition | EmailQueryFilterOperator
+EmailQueryFilter = Union[EmailQueryFilterCondition, EmailQueryFilterOperator]
