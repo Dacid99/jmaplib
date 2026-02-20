@@ -5,7 +5,16 @@ build-backend = "poetry.core.masonry.api"
 name = "jmaplib"
 version = "0.1.0"
 description = "JMAP protocol client for Python"
+keywords = [
+    "email",
+    "mail",
+    "jmap",
+    "protocol",
+    "client",
+    "fastmail",
+]
 license = "GPL-3.0-or-later"
+license-files = ["LICENSE", "docs/LICENSE"]
 authors = [ { name = "David Aderbauer", email = "Dacid99@Dacid99.net" } ]
 readme = "README.md"
 repository = "https://github.com/Dacid99/jmaplib"
@@ -15,6 +24,13 @@ classifiers = [
     "Topic :: Communications :: Email :: Post-Office",
     "Topic :: Office/Business :: Groupware",
     "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Typing :: Typed",
 ]
 requires-python = ">=3.9,<4.0"

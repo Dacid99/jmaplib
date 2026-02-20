@@ -81,16 +81,24 @@ poetry self add poetry-pre-commit-plugin
   `poetry run pre-commit run --all-files`
 * Run static checks and tests: `poetry run poe test`
 
+## Licensing
+
+The source code of this project is available under [the AGPLv3 license](LICENSE)
+starting with commit 43868e2b5a22d9b9ed9f74a341cc85031c6f6577.
+
+Previous commits are licensed under the original GPLv3 license.
+
+The documentation is licensed under [the CC-BY-SA 4.0 International License](docs/LICENSE).
+
 ---
 
 This project is a fork of the [jmapc client library for Python][jmapc].
 
 A big THANKYOU to its creators!
 
-Created using [cookiecutter][cookiecutter]
+---
 
 [codecov]: https://codecov.io/gh/Dacid99/jmaplib
-[cookiecutter]: https://github.com/cookiecutter/cookiecutter
 [fastmail-maskedemail]: https://www.fastmail.com/developer/maskedemail/
 [gh-actions]: https://github.com/Dacid99/jmaplib/actions?query=branch%3Amain
 [jmapio]: https://jmap.io
