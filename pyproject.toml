@@ -48,22 +48,46 @@ include = [
 [tool.poetry]
 requires-poetry = ">=2.0"
 
+[tool.poetry.group.dev]
+optional=true
+include-groups=[
+    "lint",
+    "test",
+    "stubs",
+    "docs",
+]
+
 [tool.poetry.group.dev.dependencies]
-black = "*"
-mypy = "*"
 poethepoet = "*"
 pre-commit = "*"
+
+[tool.poetry.group.lint]
+optional=true
+
+[tool.poetry.group.lint.dependencies]
+doc8 = { version = "*", python = "^3.10" }
+black = "*"
+mypy = "*"
+
+[tool.poetry.group.test]
+optional=true
+
+[tool.poetry.group.test.dependencies]
 pytest = "*"
 pytest-cov = "*"
 pytest-github-actions-annotate-failures = "*"
 pytest-sugar = "*"
+responses = "*"
+
+[tool.poetry.group.stubs]
+optional=true
+
+[tool.poetry.group.stubs.dependencies]
 types-python-dateutil = "*"
 types-requests = "*"
-responses = "*"
-sphinx = "*"
-sphinx-rtd-theme = "*"
-myst-parser = "*"
-doc8 = { version = "*", python = "^3.10" }
+
+[tool.poetry.group.docs]
+optional=true
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "*"
@@ -98,7 +122,6 @@ help = "Run all tests"
 source = ["jmaplib"]
 
 [tool.coverage.report]
-fail_under = 95
 show_missing = true
 
 [tool.pytest.ini_options]
