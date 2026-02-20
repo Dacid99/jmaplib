@@ -11,7 +11,7 @@ from jmaplib.serializer import Model, datetime_decode, datetime_encode
 if TYPE_CHECKING:
     from datetime import datetime
 
-    from .models import Operator
+    from jmaplib.models.models import Operator
 
 
 @dataclass

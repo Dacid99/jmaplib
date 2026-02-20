@@ -4,7 +4,7 @@ from jmaplib import Ref, ResultReference
 from jmaplib.methods import Invocation, MailboxGet, MailboxQuery
 
 
-def test_ref_with_no_method_calls() -> None:
+def test_ref_with_no_method_calls():
     method = MailboxGet(
         ids=Ref("/ids"),
     )
@@ -19,7 +19,7 @@ def test_ref_with_no_method_calls() -> None:
         Ref("/ids", method=-6),
     ],
 )
-def test_ref_with_no_method_match(invalid_ref: Ref) -> None:
+def test_ref_with_no_method_match(invalid_ref):
     method = MailboxGet(
         ids=invalid_ref,
     )
@@ -29,7 +29,7 @@ def test_ref_with_no_method_match(invalid_ref: Ref) -> None:
         )
 
 
-def test_invalid_ref_object() -> None:
+def test_invalid_ref_object():
     bad_ref = Ref("/ids")
     bad_ref._ref_sentinel = "invalid_value"
     method = MailboxGet(ids=bad_ref)
@@ -37,7 +37,7 @@ def test_invalid_ref_object() -> None:
         method.to_dict()
 
 
-def test_method_with_result_reference() -> None:
+def test_method_with_result_reference():
     method = MailboxGet(
         ids=ResultReference(
             name=MailboxQuery.get_method_name(),

@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 from jmaplib.serializer import Model, datetime_decode, datetime_encode
 
 
-def test_camel_case() -> None:
+def test_camel_case():
     @dataclass
     class TestModel(Model):
         camel_case_key: str
@@ -26,7 +26,7 @@ def test_camel_case() -> None:
     assert from_dict == d
 
 
-def test_serialize_result_reference() -> None:
+def test_serialize_result_reference():
     @dataclass
     class TestModel(Model):
         ids: ListOrRef[str]
@@ -44,7 +44,7 @@ def test_serialize_result_reference() -> None:
     }
 
 
-def test_serialize_header() -> None:
+def test_serialize_header():
     @dataclass
     class TestModel(Model):
         headers: list[EmailHeader]
@@ -60,7 +60,7 @@ def test_serialize_header() -> None:
     }
 
 
-def test_serialize_header_2() -> None:
+def test_serialize_header_2():
     @dataclass
     class TestModel(Model):
         headers: list[EmailHeader]
@@ -76,7 +76,7 @@ def test_serialize_header_2() -> None:
     }
 
 
-def test_serialize_add_account_id() -> None:
+def test_serialize_add_account_id():
     @dataclass
     class TestModel(Model):
         account_id: str | None = field(init=False)
@@ -99,7 +99,7 @@ def test_serialize_add_account_id() -> None:
         (None, {}),
     ],
 )
-def test_serialize_datetime(dt: datetime, expected_dict: dict[str, Any]) -> None:
+def test_serialize_datetime(dt, expected_dict):
     @dataclass
     class TestModel(Model):
         timestamp: datetime | None = field(

@@ -1,7 +1,4 @@
-from typing import Any
-
-
-def make_session_response() -> dict[str, Any]:
+def make_session_response():
     return {
         "apiUrl": "https://jmap-api.localhost/api",
         "downloadUrl": (

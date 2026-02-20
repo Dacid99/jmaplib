@@ -23,9 +23,8 @@ from jmaplib.session import (
     SessionCapabilitiesCore,
     SessionPrimaryAccount,
 )
-
-from .data import make_session_response
-from .utils import expect_jmap_call
+from tests.data import make_session_response
+from tests.utils import expect_jmap_call
 
 echo_test_data = dict(who="Ness", goods=["Mr. Saturn coin", "Hall of Fame Bat"])
 
@@ -47,9 +46,7 @@ echo_test_data = dict(who="Ness", goods=["Mr. Saturn coin", "Hall of Fame Bat"])
         Client("jmap-example.localhost", auth=BearerAuth("ness__pk_fire")),
     ],
 )
-def test_jmap_session(
-    test_client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_jmap_session(test_client, http_responses):
     assert test_client.jmap_session == Session(
         username="ness@onett.example.net",
         api_url="https://jmap-api.localhost/api",
@@ -87,8 +84,8 @@ def test_jmap_session(
 
 
 def test_jmap_session_no_account(
-    http_responses_base: responses.RequestsMock,
-) -> None:
+    http_responses_base,
+):
     session_response = make_session_response()
     session_response["primaryAccounts"] = {}
     http_responses_base.add(
@@ -120,10 +117,10 @@ def test_jmap_session_no_account(
     ],
 )
 def test_jmap_session_capabilities_urns(
-    client: Client,
-    http_responses_base: responses.RequestsMock,
-    urns: set[str],
-) -> None:
+    client,
+    http_responses_base,
+    urns,
+):
     session_response = make_session_response()
     session_response["capabilities"].update({u: {} for u in urns})
     http_responses_base.add(
@@ -136,9 +133,7 @@ def test_jmap_session_capabilities_urns(
     )
 
 
-def test_client_request_updated_session(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_client_request_updated_session(client, http_responses):
     new_session_response = make_session_response()
     new_session_response.update(
         {
@@ -208,10 +203,10 @@ def test_client_request_updated_session(
     ],
 )
 def test_client_request(
-    client: Client,
-    http_responses: responses.RequestsMock,
-    method_params: list[Request],
-) -> None:
+    client,
+    http_responses,
+    method_params,
+):
     expected_request = {
         "methodCalls": [
             [
@@ -271,9 +266,7 @@ def test_client_request(
 
 
 @pytest.mark.parametrize("raise_errors", [True, False])
-def test_client_request_single(
-    client: Client, http_responses: responses.RequestsMock, raise_errors: bool
-) -> None:
+def test_client_request_single(client, http_responses, raise_errors):
     method_params = CoreEcho(data=echo_test_data)
     expected_request = {
         "methodCalls": [
@@ -303,9 +296,9 @@ def test_client_request_single(
 
 
 def test_client_request_single_with_multiple_responses(
-    client: Client,
-    http_responses: responses.RequestsMock,
-) -> None:
+    client,
+    http_responses,
+):
     method_params = CoreEcho(data=echo_test_data)
     expected_request = {
         "methodCalls": [
@@ -339,9 +332,9 @@ def test_client_request_single_with_multiple_responses(
 
 
 def test_client_request_single_with_multiple_responses_error(
-    client: Client,
-    http_responses: responses.RequestsMock,
-) -> None:
+    client,
+    http_responses,
+):
     method_params = CoreEcho(data=echo_test_data)
     expected_request = {
         "methodCalls": [
@@ -381,7 +374,7 @@ def test_client_request_single_with_multiple_responses_error(
     ]
 
 
-def test_client_invalid_single_response_argument(client: Client) -> None:
+def test_client_invalid_single_response_argument(client):
     with pytest.raises(ValueError):
         client.request(
             [CoreEcho(data=echo_test_data), MailboxGet(ids=[])],
@@ -389,9 +382,7 @@ def test_client_invalid_single_response_argument(client: Client) -> None:
         )
 
 
-def test_error_unauthorized(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_error_unauthorized(client, http_responses):
     http_responses.add(
         method=responses.POST,
         url="https://jmap-api.localhost/api",
@@ -402,9 +393,7 @@ def test_error_unauthorized(
     assert e.value.response.status_code == 401
 
 
-def test_upload_blob(
-    client: Client, http_responses: responses.RequestsMock, tempdir: Path
-) -> None:
+def test_upload_blob(client, http_responses, tempdir):
     blob_content = "test upload blob content"
     source_file = tempdir / "upload.txt"
     source_file.write_text(blob_content)
@@ -423,9 +412,7 @@ def test_upload_blob(
     assert response == Blob(id="C2187", type="text/plain", size=len(blob_content))
 
 
-def test_download_attachment(
-    client: Client, http_responses: responses.RequestsMock, tempdir: Path
-) -> None:
+def test_download_attachment(client, http_responses, tempdir):
     blob_content = "test download blob content"
     http_responses.add(
         method=responses.GET,
@@ -449,9 +436,7 @@ def test_download_attachment(
     assert dest_file.read_text() == blob_content
 
 
-def test_download_email(
-    client: Client, http_responses: responses.RequestsMock, tempdir: Path
-) -> None:
+def test_download_email(client, http_responses, tempdir):
     blob_content = "test download blob content"
     http_responses.add(
         method=responses.GET,
@@ -474,7 +459,7 @@ def test_download_email(
     assert dest_file.read_text() == blob_content
 
 
-def test_email_import(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_email_import(client, http_responses):
     """
     Test importing an email using the Email/import JMAP method.
     """
@@ -551,9 +536,7 @@ def test_email_import(client: Client, http_responses: responses.RequestsMock) ->
     assert result.created["import1"].size == 2048
 
 
-def test_email_import_with_received_at(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_email_import_with_received_at(client, http_responses):
     """
     Test importing an email with receivedAt parameter.
     """

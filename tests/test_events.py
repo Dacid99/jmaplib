@@ -12,12 +12,11 @@ import responses
 import sseclient
 
 from jmaplib import Client, Event, EventSourceConfig, StateChange, TypeState
-
-from .data import make_session_response
+from tests.data import make_session_response
 
 
 @pytest.fixture
-def mock_sseclient() -> Iterable[mock.MagicMock]:
+def mock_sseclient():
     mock_client = mock.MagicMock(
         spec=sseclient.SSEClient,
         __iter__=lambda self: self,
@@ -67,11 +66,11 @@ def mock_sseclient() -> Iterable[mock.MagicMock]:
     ],
 )
 def test_event_source_url(
-    mock_sseclient: mock.MagicMock,
-    event_source_url: str,
-    expected_call_url: str,
-    event_source_config: EventSourceConfig | None,
-) -> None:
+    mock_sseclient,
+    event_source_url,
+    expected_call_url,
+    event_source_config,
+):
     client = Client(
         host="jmap-example.localhost",
         auth=("ness", "pk_fire"),
@@ -95,10 +94,10 @@ def test_event_source_url(
 
 
 def test_event_source(
-    client: Client,
-    mock_sseclient: mock.MagicMock,
-    http_responses: responses.RequestsMock,
-) -> None:
+    client,
+    mock_sseclient,
+    http_responses,
+):
     mock_events = [
         sseclient.Event(
             id="8001",

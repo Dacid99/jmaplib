@@ -1,10 +1,10 @@
-from .maskedemail_methods import (
+from jmaplib.fastmail.maskedemail_methods import (
     MaskedEmailGet,
     MaskedEmailGetResponse,
     MaskedEmailSet,
     MaskedEmailSetResponse,
 )
-from .maskedemail_models import MaskedEmail, MaskedEmailState
+from jmaplib.fastmail.maskedemail_models import MaskedEmail, MaskedEmailState
 
 __all__ = [
     "MaskedEmail",

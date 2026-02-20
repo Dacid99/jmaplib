@@ -14,9 +14,7 @@ from jmaplib.fastmail import (
 from tests.utils import expect_jmap_call
 
 
-def test_maskedemail_get(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_maskedemail_get(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -75,9 +73,7 @@ def test_maskedemail_get(
     )
 
 
-def test_maskedemail_set(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_maskedemail_set(client, http_responses):
     expected_request = {
         "methodCalls": [
             [

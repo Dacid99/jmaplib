@@ -1,4 +1,4 @@
-from .email import (
+from jmaplib.models.email import (
     Email,
     EmailBodyPart,
     EmailBodyPartProperties,
@@ -10,7 +10,7 @@ from .email import (
     EmailQueryFilterCondition,
     EmailQueryFilterOperator,
 )
-from .email_submission import (
+from jmaplib.models.email_submission import (
     Address,
     Delivered,
     DeliveryStatus,
@@ -22,15 +22,15 @@ from .email_submission import (
     Envelope,
     UndoStatus,
 )
-from .event import Event, StateChange, TypeState
-from .identity import Identity
-from .mailbox import (
+from jmaplib.models.event import Event, StateChange, TypeState
+from jmaplib.models.identity import Identity
+from jmaplib.models.mailbox import (
     Mailbox,
     MailboxQueryFilter,
     MailboxQueryFilterCondition,
     MailboxQueryFilterOperator,
 )
-from .models import (
+from jmaplib.models.models import (
     AddedItem,
     Blob,
     Comparator,
@@ -41,8 +41,8 @@ from .models import (
     StrOrRef,
     TypeOrRef,
 )
-from .search_snippet import SearchSnippet
-from .thread import Thread
+from jmaplib.models.search_snippet import SearchSnippet
+from jmaplib.models.thread import Thread
 
 __all__ = [
     "AddedItem",

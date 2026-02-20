@@ -6,11 +6,7 @@ from typing import TYPE_CHECKING, Any, ClassVar
 from dataclasses_json import config
 
 from jmaplib import constants
-
-if TYPE_CHECKING:
-    from jmaplib.models import EmailSubmission, EmailSubmissionQueryFilter
-
-from .base import (
+from jmaplib.methods.base import (
     Changes,
     ChangesResponse,
     Get,
@@ -22,6 +18,9 @@ from .base import (
     Set,
     SetResponse,
 )
+
+if TYPE_CHECKING:
+    from jmaplib.models import EmailSubmission, EmailSubmissionQueryFilter
 
 
 class EmailSubmissionBase:

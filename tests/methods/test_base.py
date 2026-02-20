@@ -5,7 +5,7 @@ import pytest
 from jmaplib.methods import Response
 
 
-def test_method_base_get_method_name() -> None:
+def test_method_base_get_method_name():
     @dataclass
     class TestResponseModel(Response):
         method_namespace = "Test"
@@ -14,7 +14,7 @@ def test_method_base_get_method_name() -> None:
     assert TestResponseModel.get_method_name() == "Test/echo"
 
 
-def test_method_base_get_method_name_no_method_type() -> None:
+def test_method_base_get_method_name_no_method_type():
     @dataclass
     class TestResponseModel(Response):
         method_namespace = "Test"
@@ -23,7 +23,7 @@ def test_method_base_get_method_name_no_method_type() -> None:
         TestResponseModel.get_method_name()
 
 
-def test_method_base_get_method_name_no_method_namespace() -> None:
+def test_method_base_get_method_name_no_method_namespace():
     @dataclass
     class TestResponseModel(Response):
         method_type = "echo"

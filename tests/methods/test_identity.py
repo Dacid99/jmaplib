@@ -12,9 +12,7 @@ from jmaplib.methods import (
 from tests.utils import expect_jmap_call
 
 
-def test_identity_changes(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_identity_changes(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -63,7 +61,7 @@ def test_identity_changes(
     )
 
 
-def test_identity_get(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_identity_get(client, http_responses):
     expected_request = {
         "methodCalls": [
             ["Identity/get", {"accountId": "u1138"}, "single.Identity/get"]
@@ -118,7 +116,7 @@ def test_identity_get(client: Client, http_responses: responses.RequestsMock) ->
     )
 
 
-def test_identity_set(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_identity_set(client, http_responses):
     expected_request = {
         "methodCalls": [
             [

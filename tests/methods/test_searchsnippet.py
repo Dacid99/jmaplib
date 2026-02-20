@@ -5,9 +5,7 @@ from jmaplib.methods import SearchSnippetGet, SearchSnippetGetResponse
 from tests.utils import expect_jmap_call
 
 
-def test_search_snippet_get(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_search_snippet_get(client, http_responses):
     expected_request = {
         "methodCalls": [
             [

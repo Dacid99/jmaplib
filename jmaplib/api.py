@@ -10,8 +10,8 @@ from typing import (
 
 from dataclasses_json import config
 
-from . import constants, errors
-from .methods import (
+from jmaplib import constants, errors
+from jmaplib.methods import (
     CustomResponse,
     Invocation,
     InvocationResponseOrError,
@@ -20,7 +20,7 @@ from .methods import (
     Response,
     ResponseOrError,
 )
-from .serializer import Model
+from jmaplib.serializer import Model
 
 
 def decode_method_responses(

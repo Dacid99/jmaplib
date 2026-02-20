@@ -1,4 +1,4 @@
-from .base import (
+from jmaplib.methods.base import (
     Invocation,
     InvocationResponse,
     InvocationResponseOrError,
@@ -7,9 +7,9 @@ from .base import (
     Response,
     ResponseOrError,
 )
-from .core import CoreEcho, CoreEchoResponse
-from .custom import CustomMethod, CustomResponse
-from .email import (
+from jmaplib.methods.core import CoreEcho, CoreEchoResponse
+from jmaplib.methods.custom import CustomMethod, CustomResponse
+from jmaplib.methods.email import (
     EmailChanges,
     EmailChangesResponse,
     EmailCopy,
@@ -17,7 +17,6 @@ from .email import (
     EmailGet,
     EmailGetResponse,
     EmailImport,
-    EmailImportRequest,
     EmailImportResponse,
     EmailQuery,
     EmailQueryChanges,
@@ -26,7 +25,7 @@ from .email import (
     EmailSet,
     EmailSetResponse,
 )
-from .email_submission import (
+from jmaplib.methods.email_submission import (
     EmailSubmissionChanges,
     EmailSubmissionChangesResponse,
     EmailSubmissionGet,
@@ -38,7 +37,7 @@ from .email_submission import (
     EmailSubmissionSet,
     EmailSubmissionSetResponse,
 )
-from .identity import (
+from jmaplib.methods.identity import (
     IdentityChanges,
     IdentityChangesResponse,
     IdentityGet,
@@ -46,7 +45,7 @@ from .identity import (
     IdentitySet,
     IdentitySetResponse,
 )
-from .mailbox import (
+from jmaplib.methods.mailbox import (
     MailboxChanges,
     MailboxChangesResponse,
     MailboxGet,
@@ -58,8 +57,8 @@ from .mailbox import (
     MailboxSet,
     MailboxSetResponse,
 )
-from .search_snippet import SearchSnippetGet, SearchSnippetGetResponse
-from .thread import (
+from jmaplib.methods.search_snippet import SearchSnippetGet, SearchSnippetGetResponse
+from jmaplib.methods.thread import (
     ThreadChanges,
     ThreadChangesResponse,
     ThreadGet,
@@ -78,7 +77,7 @@ __all__ = [
     "EmailGet",
     "EmailGetResponse",
     "EmailImport",
-    "EmailImportRequest",
+    "EmailImport",
     "EmailImportResponse",
     "EmailQuery",
     "EmailQueryChanges",

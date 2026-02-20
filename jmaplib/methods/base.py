@@ -4,6 +4,8 @@ import contextlib
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, ClassVar, Union, cast
 
+from dataclasses_json import config
+
 from jmaplib.errors import Error
 from jmaplib.serializer import Model
 
@@ -137,6 +139,23 @@ class GetResponseWithoutState(ResponseWithAccount, GetMethod):
 @dataclass
 class GetResponse(GetResponseWithoutState):
     state: str | None
+
+
+class ImportMethod:
+    method_type: str | None = "import"
+
+
+@dataclass
+class Import(MethodWithAccount, ImportMethod):
+    if_in_state: str | None = field(
+        metadata=config(field_name="ifInState"), default=None
+    )
+
+
+@dataclass
+class ImportResponse(ResponseWithAccount, ImportMethod):
+    old_state: str | None = field(metadata=config(field_name="oldState"))
+    new_state: str = field(metadata=config(field_name="newState"))
 
 
 class SetMethod:

@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, ClassVar, cast
 
-from .serializer import Model
+from jmaplib.serializer import Model
 
 __all__ = ["Error", "ServerFail"]
 

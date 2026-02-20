@@ -20,6 +20,8 @@ from jmaplib.methods import (
     EmailCopyResponse,
     EmailGet,
     EmailGetResponse,
+    EmailImport,
+    EmailImportResponse,
     EmailQuery,
     EmailQueryChanges,
     EmailQueryChangesResponse,
@@ -30,7 +32,7 @@ from jmaplib.methods import (
 from tests.utils import expect_jmap_call
 
 
-def test_email_changes(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_email_changes(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -79,7 +81,7 @@ def test_email_changes(client: Client, http_responses: responses.RequestsMock) -
     )
 
 
-def test_email_copy(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_email_copy(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -144,7 +146,7 @@ def test_email_copy(client: Client, http_responses: responses.RequestsMock) -> N
     )
 
 
-def test_email_get(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_email_get(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -233,7 +235,7 @@ def test_email_get(client: Client, http_responses: responses.RequestsMock) -> No
     )
 
 
-def test_email_query(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_email_query(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -303,9 +305,7 @@ def test_email_query(client: Client, http_responses: responses.RequestsMock) -> 
     )
 
 
-def test_email_query_changes(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_email_query_changes(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -384,7 +384,7 @@ def test_email_query_changes(
     )
 
 
-def test_email_set(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_email_set(client, http_responses):
     draft = Email(
         mail_from=[
             EmailAddress(name="Paula", email="paula@twoson.example.net"),

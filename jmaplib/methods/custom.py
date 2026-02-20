@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from .base import MethodWithAccount, ResponseWithAccount
+from jmaplib.methods.base import MethodWithAccount, ResponseWithAccount
 
 
 @dataclass

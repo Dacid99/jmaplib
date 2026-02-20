@@ -4,8 +4,7 @@ from dataclasses import dataclass
 from typing import Any, ClassVar
 
 from jmaplib import constants
-
-from .base import Method, Response
+from jmaplib.methods.base import Method, Response
 
 
 class CoreBase:

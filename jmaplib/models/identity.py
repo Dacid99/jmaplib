@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from jmaplib.serializer import Model
 
 if TYPE_CHECKING:
-    from .models import EmailAddress
+    from jmaplib.models.models import EmailAddress
 
 
 @dataclass

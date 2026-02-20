@@ -64,9 +64,7 @@ email_submission_set_response = {
 }
 
 
-def test_email_submission_changes(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_email_submission_changes(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -115,9 +113,7 @@ def test_email_submission_changes(
     )
 
 
-def test_email_submission_get(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_email_submission_get(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -171,9 +167,7 @@ def test_email_submission_get(
     )
 
 
-def test_email_submission_query(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_email_submission_query(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -227,9 +221,7 @@ def test_email_submission_query(
     )
 
 
-def test_email_submission_query_changes(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_email_submission_query_changes(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -294,9 +286,7 @@ def test_email_submission_query_changes(
     )
 
 
-def test_email_submission_set(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_email_submission_set(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -355,9 +345,7 @@ def test_email_submission_set(
     )
 
 
-def test_email_submission_set_on_success_destroy_email(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_email_submission_set_on_success_destroy_email(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -446,9 +434,7 @@ def test_email_submission_set_on_success_destroy_email(
     ]
 
 
-def test_email_submission_set_on_success_update_email(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_email_submission_set_on_success_update_email(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -543,9 +529,7 @@ def test_email_submission_set_on_success_update_email(
     ]
 
 
-def test_email_submission_set_update_email_error(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_email_submission_set_update_email_error(client, http_responses):
     expected_request = {
         "methodCalls": [
             [

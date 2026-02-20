@@ -8,7 +8,7 @@ from dataclasses_json import config
 from jmaplib.methods.base import Get, GetResponse, Set, SetResponse
 
 if TYPE_CHECKING:
-    from .maskedemail_models import MaskedEmail
+    from jmaplib.fastmail.maskedemail_models import MaskedEmail
 
 URN = "https://www.fastmail.com/dev/maskedemail"
 

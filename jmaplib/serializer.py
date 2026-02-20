@@ -6,12 +6,12 @@ from typing import TYPE_CHECKING, Any, cast
 import dataclasses_json
 import dateutil.parser
 
-from .ref import REF_SENTINEL_KEY, Ref, ResultReference
+from jmaplib.ref import REF_SENTINEL_KEY, Ref, ResultReference
 
 if TYPE_CHECKING:
     from datetime import datetime
 
-    from .methods import Invocation  # pragma: no cover
+    from jmaplib.methods import Invocation  # pragma: no cover
 
 
 def datetime_encode(dt: datetime) -> str:

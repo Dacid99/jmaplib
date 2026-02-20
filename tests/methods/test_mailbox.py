@@ -16,9 +16,7 @@ from jmaplib.methods import (
 from tests.utils import expect_jmap_call
 
 
-def test_mailbox_changes(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_mailbox_changes(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -67,7 +65,7 @@ def test_mailbox_changes(
     )
 
 
-def test_mailbox_get(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_mailbox_get(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -146,7 +144,7 @@ def test_mailbox_get(client: Client, http_responses: responses.RequestsMock) -> 
     )
 
 
-def test_mailbox_query(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_mailbox_query(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -198,9 +196,7 @@ def test_mailbox_query(client: Client, http_responses: responses.RequestsMock) -
     )
 
 
-def test_mailbox_query_changes(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_mailbox_query_changes(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -265,7 +261,7 @@ def test_mailbox_query_changes(
     )
 
 
-def test_mailbox_set(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_mailbox_set(client, http_responses):
     expected_request = {
         "methodCalls": [
             [

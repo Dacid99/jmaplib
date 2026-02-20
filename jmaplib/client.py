@@ -11,12 +11,12 @@ import requests
 import sseclient
 from typing_extensions import Self
 
-from . import errors
-from .api import APIRequest, APIResponse
-from .auth import BearerAuth
-from .logging import log
-from .methods import (
-    EmailImportRequest,
+from jmaplib import errors
+from jmaplib.api import APIRequest, APIResponse
+from jmaplib.auth import BearerAuth
+from jmaplib.logging import log
+from jmaplib.methods import (
+    EmailImport,
     EmailImportResponse,
     InvocationResponse,
     InvocationResponseOrError,
@@ -25,8 +25,9 @@ from .methods import (
     Response,
     ResponseOrError,
 )
-from .models import Blob, Email, EmailBodyPart, EmailImport, Event
-from .session import Session
+from jmaplib.models import Blob, Email, EmailBodyPart, Event
+from jmaplib.models import EmailImport as EmailImportModel
+from jmaplib.session import Session
 
 if TYPE_CHECKING:
     from collections.abc import Generator, Sequence
@@ -235,7 +236,7 @@ class Client:
             The EmailImportResponse containing details of the imported email
         """
         # Create EmailImport object
-        email_import = EmailImport(
+        email_import = EmailImportModel(
             blob_id=blob_id,
             mailbox_ids=mailbox_ids,
             keywords=keywords,
@@ -246,9 +247,7 @@ class Client:
             email_import.received_at = received_at
 
         # Create the request
-        request = EmailImportRequest(
-            emails={"import1": email_import}, if_in_state=if_in_state
-        )
+        request = EmailImport(emails={"import1": email_import}, if_in_state=if_in_state)
         # Add the account ID
         request.account_id = self.account_id
 

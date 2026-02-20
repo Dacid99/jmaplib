@@ -1,9 +1,9 @@
-from . import auth, errors, fastmail, methods, models
-from .__version__ import __version__ as version
-from .client import Client, ClientError, EventSourceConfig
-from .errors import Error
-from .methods import Request, ResponseOrError
-from .models import (
+from jmaplib import auth, errors, fastmail, methods, models
+from jmaplib.__version__ import __version__ as version
+from jmaplib.client import Client, ClientError, EventSourceConfig
+from jmaplib.errors import Error
+from jmaplib.methods import Request, ResponseOrError
+from jmaplib.models import (
     AddedItem,
     Address,
     Blob,
@@ -42,7 +42,7 @@ from .models import (
     TypeState,
     UndoStatus,
 )
-from .ref import Ref, ResultReference
+from jmaplib.ref import Ref, ResultReference
 
 __all__ = [
     "AddedItem",

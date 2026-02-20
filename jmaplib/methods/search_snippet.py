@@ -10,7 +10,7 @@ from jmaplib import constants
 if TYPE_CHECKING:
     from jmaplib.models import EmailQueryFilter, ListOrRef, SearchSnippet, TypeOrRef
 
-from .base import Get, GetResponseWithoutState
+from jmaplib.methods.base import Get, GetResponseWithoutState
 
 
 class SearchSnippetBase:

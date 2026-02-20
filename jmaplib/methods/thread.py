@@ -6,8 +6,7 @@ from typing import TYPE_CHECKING, ClassVar
 from dataclasses_json import config
 
 from jmaplib import constants
-
-from .base import Changes, ChangesResponse, Get, GetResponse
+from jmaplib.methods.base import Changes, ChangesResponse, Get, GetResponse
 
 if TYPE_CHECKING:
     from jmaplib.models import Thread

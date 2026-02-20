@@ -11,7 +11,7 @@ from jmaplib.methods import (
 from tests.utils import expect_jmap_call
 
 
-def test_custom_method(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_custom_method(client, http_responses):
     test_data = dict(
         accountId="u1138",
         custom_value="Spiteful Crow",
@@ -45,9 +45,7 @@ def test_custom_method(client: Client, http_responses: responses.RequestsMock) -
     assert resp == CustomResponse(account_id="u1138", data=test_data)
 
 
-def test_custom_method_as_result_reference_target(
-    client: Client, http_responses: responses.RequestsMock
-) -> None:
+def test_custom_method_as_result_reference_target(client, http_responses):
     test_data = dict(
         accountId="u1138",
         custom_value="Spiteful Crow",

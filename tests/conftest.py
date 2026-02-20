@@ -5,24 +5,19 @@ import logging
 import tempfile
 import time
 from pathlib import Path
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from collections.abc import Iterable
 
 import pytest
 import responses
 
 from jmaplib import Client
 from jmaplib.logging import log
-
-from .data import make_session_response
+from tests.data import make_session_response
 
 pytest.register_assert_rewrite("tests.data", "tests.utils")
 
 
 @pytest.fixture(autouse=True)
-def test_log() -> Iterable[None]:
+def test_log():
     class UTCFormatter(logging.Formatter):
         converter = time.gmtime
 
@@ -35,24 +30,23 @@ def test_log() -> Iterable[None]:
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     log.setLevel(logging.DEBUG)
-    return
 
 
 @pytest.fixture
-def client() -> Iterable[Client]:
+def client():
     return Client(host="jmap-example.localhost", auth=("ness", "pk_fire"))
 
 
 @pytest.fixture
-def http_responses_base() -> Iterable[responses.RequestsMock]:
+def http_responses_base():
     with responses.RequestsMock() as resp_mock:
         yield resp_mock
 
 
 @pytest.fixture
 def http_responses(
-    http_responses_base: responses.RequestsMock,
-) -> Iterable[responses.RequestsMock]:
+    http_responses_base,
+):
     http_responses_base.add(
         method=responses.GET,
         url="https://jmap-example.localhost/.well-known/jmap",
@@ -62,6 +56,6 @@ def http_responses(
 
 
 @pytest.fixture
-def tempdir() -> Iterable[Path]:
+def tempdir():
     with tempfile.TemporaryDirectory(suffix=".unit_test") as td:
         yield Path(td)

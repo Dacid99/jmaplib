@@ -10,7 +10,7 @@ from jmaplib.methods import (
 from tests.utils import expect_jmap_call
 
 
-def test_thread_changes(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_thread_changes(client, http_responses):
     expected_request = {
         "methodCalls": [
             [
@@ -59,7 +59,7 @@ def test_thread_changes(client: Client, http_responses: responses.RequestsMock) 
     )
 
 
-def test_thread_get(client: Client, http_responses: responses.RequestsMock) -> None:
+def test_thread_get(client, http_responses):
     expected_request = {
         "methodCalls": [
             [

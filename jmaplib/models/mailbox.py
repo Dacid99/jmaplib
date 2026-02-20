@@ -8,7 +8,7 @@ from dataclasses_json import config
 from jmaplib.serializer import Model
 
 if TYPE_CHECKING:
-    from .models import Operator, StrOrRef
+    from jmaplib.models.models import Operator, StrOrRef
 
 
 @dataclass

@@ -5,8 +5,8 @@ from dataclasses import dataclass, field
 
 from dataclasses_json import CatchAll, Undefined, config, dataclass_json
 
-from . import constants
-from .serializer import Model
+from jmaplib import constants
+from jmaplib.serializer import Model
 
 
 @dataclass
